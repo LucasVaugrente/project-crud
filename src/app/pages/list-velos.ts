@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent } from '../components/confirmation-dialog.c
 import { FormulaireMiseAJourComponent } from '../components/form-update-velo.component';
 import { FormulaireAjoutComponent } from '../components/form-add-velo.component';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-velo-list',
@@ -44,9 +45,14 @@ import { MatButtonModule } from '@angular/material/button';
             <td mat-cell *matCellDef="let velo"> {{ velo.quantite }} </td>
           </ng-container>
 
-            <ng-container matColumnDef="coordonneesId">
+          <ng-container matColumnDef="coordonneesId">
             <th mat-header-cell *matHeaderCellDef> ID Coordonnées </th>
-            <td mat-cell *matCellDef="let velo"> {{ velo.coordonneesId }} </td>
+            <td mat-cell *matCellDef="let velo">
+<!--              {{ velo.coordonneesId }}-->
+              <button class="btn-seeMap" (click)="voirSurCarte(velo)">
+                Voir sur la carte
+              </button>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
@@ -105,14 +111,18 @@ import { MatButtonModule } from '@angular/material/button';
       margin: 20px;
     }
 
-    .btn-delete {
-      background-color: #f44336;
+    .btn-delete, .btn-update, .btn-seeMap {
       color: white;
       border: none;
       border-radius: 4px;
       padding: 5px 10px;
       cursor: pointer;
       font-size: 12px;
+    }
+
+    .btn-delete {
+      background-color: #f44336;
+
     }
 
     .btn-delete:hover {
@@ -121,17 +131,19 @@ import { MatButtonModule } from '@angular/material/button';
 
     .btn-update {
       background-color: #3984ac;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 12px;
       margin-right: 10px;
     }
 
     .btn-update:hover {
       background-color: #2e6f91;
+    }
+
+    .btn-seeMap {
+      background-color: #5cc31c;
+    }
+
+    .btn-seeMap:hover {
+      background-color: #4ba116;
     }
   `]
 })
@@ -144,11 +156,14 @@ export class VeloListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dialog: MatDialog, private veloService: VeloService) {}
+  constructor(
+    private dialog: MatDialog,
+    private veloService: VeloService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.veloService.getVelos().subscribe(data => {
-      console.log(data)
       this.dataSource.data = data;
     });
   }
@@ -197,6 +212,21 @@ export class VeloListComponent implements OnInit, AfterViewInit {
       if (result) {
         this.veloService.supprimerVelo(id).subscribe(() => {
           this.dataSource.data = this.dataSource.data.filter(velo => velo.id !== id);
+        });
+      }
+    });
+  }
+
+  voirSurCarte(velo: Velo): void {
+    this.veloService.getVelosWithCoordonnees().subscribe(velos => {
+      const veloWithCoord = velos.find(v => v.id === velo.id);
+      if (veloWithCoord) {
+        this.router.navigate(['/map'], {
+          state: {
+            latitude: veloWithCoord.latitude,
+            longitude: veloWithCoord.longitude,
+            nom: veloWithCoord.nom
+          }
         });
       }
     });

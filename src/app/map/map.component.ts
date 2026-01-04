@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { VeloService } from '../services/velo.service';
 import 'leaflet.markercluster';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -12,10 +13,20 @@ import 'leaflet.markercluster';
 export class MapComponent implements OnInit {
   private map!: L.Map;
 
-  constructor(private veloService: VeloService) {}
+  constructor(private veloService: VeloService, private router: Router) {}
 
   ngOnInit(): void {
     this.initMap();
+
+    const state = window.history.state as {
+      latitude: number;
+      longitude: number;
+      nom: string;
+    };
+
+    if (state && state.latitude && state.longitude) {
+      this.map.setView([state.latitude, state.longitude], 17);
+    }
   }
 
   private initMap(): void {
