@@ -3,11 +3,11 @@
     <h1>Application Reservation Vélo</h1>
   </div>
   <ul class="navbar-links">
-    <li><a routerLink="/">Home</a></li>
-    <li><a routerLink="/users">Utilisateurs</a></li>
-    <li><a routerLink="/reservations">Réservations</a></li>
-    <li><a routerLink="/velos">Vélos</a></li>
-    <li><a routerLink="/map">Carte</a></li>
+    <li><a routerLink="/" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a></li>
+    <li><a routerLink="/users" routerLinkActive="router-link-active">Utilisateurs</a></li>
+    <li><a routerLink="/reservations" routerLinkActive="router-link-active">Réservations</a></li>
+    <li><a routerLink="/velos" routerLinkActive="router-link-active">Vélos</a></li>
+    <li><a routerLink="/map" routerLinkActive="router-link-active">Carte</a></li>
   </ul>
   <div class="navbar-actions">
     <!-- Add login/logout buttons or user-related actions here -->

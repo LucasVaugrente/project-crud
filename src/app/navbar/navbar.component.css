@@ -41,9 +41,9 @@
 
 .navbar-links a.router-link-active {
   color: #2c3e50;
-  background-color: #3498db;
-  font-weight: 600;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #a5c2d4;
+  color: #2c3e50;
+  box-shadow: 0 0 15px rgba(144, 144, 144, 0.57);
 }
 
 .navbar-links a:hover:not(.router-link-active) {
@@ -57,14 +57,6 @@
   align-items: center;
 }
 
-/* Optionnel : pour un effet "active" sur le lien courant */
-.navbar-links a.router-link-active {
-  color: #3498db;
-  font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Responsive : pour les petits écrans */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -87,28 +79,28 @@
 
 .logout-link {
   cursor: pointer;
-  color: #ecf0f1;
+  background-color: #BD2A0D;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
 }
 
 .logout-link:hover {
-  color: #3498db;
+  background-color: #A6270D;
 }
 
 .login-btn {
-  background-color: #2c3e50;
+  background-color: #2C69A3;
   color: white;
   padding: 8px 14px;
   border-radius: 6px;
   text-decoration: none;
+  transition: all 0.3s ease;
   font-weight: 500;
 }
 
 .login-btn:hover {
-  color: #3498db;
-  background-color: #2c3e50;
-  background-color: rgba(255, 255, 255, 0.1);
-
+  background-color: #265A8C;
 }

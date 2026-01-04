@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/Auth.service';
 
@@ -8,6 +8,7 @@ import { AuthService } from '../services/Auth.service';
   standalone: true,
   imports: [
     RouterLink,
+    RouterLinkActive,
     CommonModule
   ],
   templateUrl: './navbar.component.html',

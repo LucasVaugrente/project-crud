@@ -13,7 +13,7 @@ import { ReservationComponent } from './pages/list-reservation';
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
-  { path: '', component: HomeComponent }, // Page d'accueil
+  { path: '', component: HomeComponent, pathMatch: 'full'}, // Page d'accueil
 
   { path: 'velos', component: VeloListComponent, canActivate: [AuthGuard] },
   { path: 'map', component: MapComponent, canActivate: [AuthGuard] },
