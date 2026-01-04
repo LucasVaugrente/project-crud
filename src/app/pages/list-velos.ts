@@ -171,17 +171,20 @@ export class VeloListComponent implements OnInit, AfterViewInit {
   }
 
   ouvrirFormulaireMiseAJour(velo: Velo): void {
-    const dialogRef = this.dialog.open(FormulaireMiseAJourComponent, {
-      data: { velo },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.veloService.updateVelo(velo.id, result).subscribe(() => {
-          this.veloService.getVelos().subscribe(data => {
-            this.dataSource.data = data;
+    this.veloService.getVelosWithCoordonnees().subscribe(velos => {
+      const veloWithCoord = velos.find(v => v.id === velo.id);
+      const dialogRef = this.dialog.open(FormulaireMiseAJourComponent, {
+        data: { velo: veloWithCoord },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.veloService.updateVelo(velo.id, result).subscribe(() => {
+            this.veloService.getVelos().subscribe(data => {
+              this.dataSource.data = data;
+            });
           });
-        });
-      }
+        }
+      });
     });
   }
 
