@@ -37,8 +37,6 @@ import { Router } from "@angular/router";
           </div>
 
           <button type="submit">Connexion</button>
-
-          <a routerLink="/forgot-password" class="forgot">Mot de passe oublié ?</a>
         </form>
 
         <p *ngIf="error" class="error">Mail ou Mot de passe incorrect</p>
