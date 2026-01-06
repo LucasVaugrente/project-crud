@@ -1,20 +1,24 @@
 # ProjectCrud
 
-## Development server
+## Installation
 
-Run `ng serve --proxy-config proxy.conf.json` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+You have to have Angular installed with theses commands
 
-## Code scaffolding
+```bash
+npm install -g @angular/cli
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run this command to install all dependencies.
 
-Page à Faire : 
-page de connexion
-page velo
-page utilisateur (ajouter / supprimer) on doit décider si c'est dans des pages différentes
-page reservation
-page cartographie
+```bash
+npm install
+```
 
-Model à faire :
+## Launch Web Server
 
-utilisateur / velo / reservation
+Run this command for a dev server.
+```bash
+ng serve --proxy-config proxy.conf.json
+```
+
+Navigate to `http://localhost:4200/`.
