@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NgIf } from "@angular/common";
+import { UtilisateurService } from '../services/utilisateur.service';
 
 @Component({
   selector: 'app-formulaire-ajout',
@@ -27,6 +28,10 @@ import { NgIf } from "@angular/common";
             Le prénom est requis
           </mat-error>
         </mat-form-field>
+            <mat-form-field class="full-width">
+              <mat-label>Nom d'utilisateur</mat-label>
+              <input matInput formControlName="username" placeholder="nom.prenom">
+            </mat-form-field>
         <mat-form-field class="full-width">
           <mat-label>Email</mat-label>
           <input matInput formControlName="mail" type="email" placeholder="Entrer votre email" required>
@@ -35,6 +40,9 @@ import { NgIf } from "@angular/common";
           </mat-error>
           <mat-error *ngIf="form.get('mail')?.hasError('email')">
             L'email doit être valide
+          </mat-error>
+          <mat-error *ngIf="form.get('mail')?.hasError('emailExists')">
+            Un compte avec cette adresse email existe déjà
           </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
@@ -81,17 +89,45 @@ import { NgIf } from "@angular/common";
 })
 export class FormulaireAjoutComponent {
   form: FormGroup;
+  backendError: string | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<FormulaireAjoutComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private utilisateurService: UtilisateurService
   ) {
+    
     this.form = this.fb.group({
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       mail: ['', [Validators.required, Validators.email]],
+      username: [''], 
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+    this.form.get('mail')?.valueChanges.subscribe(() => {
+      if (this.form.get('mail')?.hasError('emailExists')) {
+        this.form.get('mail')?.setErrors(null);
+        this.backendError = null;
+      }
+    });
+    
+    this.form.get('nom')?.valueChanges.subscribe(() => this.updateUsername());
+    this.form.get('prenom')?.valueChanges.subscribe(() => this.updateUsername());
+    this.updateUsername();
+  }
+
+  private updateUsername(): void {
+    const nom = this.form.get('nom')?.value || '';
+    const prenom = this.form.get('prenom')?.value || '';
+    if (!nom && !prenom) {
+      this.form.get('username')?.setValue('');
+      return;
+    }
+    const combined = `${nom}.${prenom}`.toLowerCase().trim();
+      const normalized = combined.normalize
+        ? combined.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '')
+        : combined.replace(/\s+/g, '');
+    this.form.get('username')?.setValue(normalized, { emitEvent: false });
   }
 
   onCancel(): void {
@@ -100,7 +136,21 @@ export class FormulaireAjoutComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      this.backendError = null;
+
+      this.utilisateurService.addUtilisateur(this.form.value).subscribe({
+        next: (createdUser) => {
+          this.dialogRef.close(createdUser);
+        },
+        error: (error) => {
+          if (error.status === 409) {
+            this.form.get('mail')?.setErrors({ emailExists: true });
+            this.backendError = error.error?.error;
+          } else {
+            this.backendError = "Une erreur est survenue lors de la création";
+          }
+        }
+      });
     }
   }
 }

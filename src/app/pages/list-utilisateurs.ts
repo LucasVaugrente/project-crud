@@ -160,11 +160,9 @@ export class UtilisateurListComponent implements OnInit, AfterViewInit { // 3. I
     const dialogRef = this.dialog.open(FormulaireAjoutComponent, {
       width: '500px',
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.utilisateurService.addUtilisateur(result).subscribe(() => {
-          this.ngOnInit(); // Rafraîchir la liste
-        });
+    dialogRef.afterClosed().subscribe((createdUser) => {
+      if (createdUser) {
+        this.dataSource.data = [...this.dataSource.data, createdUser];
       }
     });
   }
