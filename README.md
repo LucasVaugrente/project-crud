@@ -32,3 +32,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"nom":"Dupont","prenom":"J
 When you arrive in the application to log in, you can log in using:
 - `dupont@example.com` as email
 - `monSuperMDP` as password.
+
+# 🙎‍♂️ Contributors
+* [Lucas Vaugrente](https://github.com/LucasVaugrente "Compte GitHub")
+* [Salma Mansouri](https://github.com/Salma-msr "Compte GitHub")
+* [Imane Abdou](https://github.com/VimaneAb "Compte GitHub")
