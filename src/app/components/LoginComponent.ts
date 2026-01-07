@@ -51,7 +51,7 @@ import { Router } from "@angular/router";
       align-items: center;
       height: 100vh;
       background: linear-gradient(135deg, #2c3e50, #4c5b6b);
-      padding: 10px;
+      padding: 10px 10px 170px 10px;
       box-sizing: border-box;
     }
 

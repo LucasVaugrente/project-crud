@@ -23,7 +23,7 @@ import { InfoDialogComponent } from '../components/info-dialog.component';
     MatButtonModule
   ],
   template: `
-    <div>
+    <div class="container-reservations">
 
       <div class="block-btn">
         <button mat-raised-button color="primary" (click)="openAddDialog()">
@@ -91,6 +91,10 @@ import { InfoDialogComponent } from '../components/info-dialog.component';
     </div>
   `,
   styles: [`
+    .container-reservations {
+      padding-bottom: 100px;
+    }
+
     table {
       border-radius: 5px;
       font-size: 12px;

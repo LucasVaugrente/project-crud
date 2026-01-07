@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule],
   template: `
-    <div>
+    <div class="container-utilisateurs">
       <div>
 
         <div class="block-btn">
@@ -70,6 +70,10 @@ import { MatButtonModule } from '@angular/material/button';
     </div>
   `,
   styles: [`
+    .container-utilisateurs {
+      padding-bottom: 100px;
+    }
+
     table {
       border-radius: 5px;
       font-size: 12px;

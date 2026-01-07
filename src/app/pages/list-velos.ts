@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule],
   template: `
-    <div>
+    <div class="container-velos">
       <div>
 
         <div class="block-btn">
@@ -76,6 +76,10 @@ import { Router } from '@angular/router';
     </div>
   `,
   styles: [`
+    .container-velos {
+      padding-bottom: 100px;
+    }
+
     table {
       border-radius: 5px;
       font-size: 12px;
