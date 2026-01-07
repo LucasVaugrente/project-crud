@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgFor, NgIf } from '@angular/common';
 
 import { UtilisateurService } from '../services/utilisateur.service';
@@ -70,6 +71,7 @@ import { Velo } from '../models/veloDTO';
       display: flex;
       justify-content: flex-end;
       gap: 8px;
+      padding: 8px 16px 16px;
     }
   `],
   imports: [
@@ -78,6 +80,7 @@ import { Velo } from '../models/veloDTO';
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     NgFor,
     NgIf
   ]
